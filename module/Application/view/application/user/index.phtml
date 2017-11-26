@@ -1,0 +1,47 @@
+<?php if ($user = $this->identity()): ?>
+<?php
+$title = 'List User';
+$this->headTitle($title);
+?>
+<br>
+<?php $paging = $this->paginationHelper($pagedUsers, $page, '/user/', 10); ?>
+<div class="col-md-12">
+  	<h1><?php echo $this->escapeHtml($title); ?></h1>
+	<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Id</th>
+		    <th>Name</th>
+		    <th>Surname</th>
+            <th>Email</th>
+            <th>Account Active</th>
+		    <th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($pagedUsers as $user) : ?>
+		<tr>
+			<td><?php echo $this->escapeHtml($user->getId())?></td>
+		    <td><?php echo $this->escapeHtml($user->getName());?></td>
+		    <td><?php echo $this->escapeHtml($user->getSurname());?></td>
+            <td><?php echo $this->escapeHtml($user->getEmail());?></td>
+            <?php if ($user->getActive() == 1): ?>
+                <td>Yes</td>
+            <?php else: ?>
+                <td>No</td>
+            <?php endif; ?>
+            <td>
+                <a href="<?php echo $this->url('user',array('action'=>'delete', 'id' => $user->getId()));?>" class="btn btn-danger">Delete</a>
+            </td>
+
+		</tr>
+	</tbody>
+		<?php endforeach; ?>
+	</table>
+	<div class="paging">
+    	<?php echo  $paging; ?>
+	</div>
+</div>
+<?php else: ?>
+	<h3>Not Authentication</h3>
+<?php  endif;?>

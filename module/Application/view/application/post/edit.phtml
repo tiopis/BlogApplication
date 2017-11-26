@@ -1,0 +1,35 @@
+<?php
+    $title = 'Edit Post';
+    $this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('post',
+        array(
+            'action' => 'edit',
+            'id'     => $this->id,
+        )
+    ));
+    $form->prepare();
+    echo $this->form()->openTag($form);
+?>
+<div id="form-post-edit">
+    <?php echo $this->formHidden($form->get('id')); ?>
+    <div class="title">
+        <?php echo $this->formRow($form->get('title')->setAttribute('class', 'form-control')); ?>
+    </div>
+    <div class="image">
+        <?php if ($imgSrc = $form->get('image')->getValue()) {?>
+            <div><img style="max-width:400px;" src="<?php echo $imgSrc?>"></div>
+        <?php }?>
+        <?php echo $this->formRow($form->get('image')); ?>
+    </div>
+    <div class="text">
+        <?php echo $this->formRow($form->get('text')->setAttribute('class', 'form-control')); ?>
+    </div>
+    <?php
+        echo $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-warning'));
+        echo $this->form()->closeTag();
+    ?>
+</div>

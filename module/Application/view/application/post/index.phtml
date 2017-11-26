@@ -1,0 +1,76 @@
+<?php if ($user = $this->identity()): ?>
+<?php
+$title = 'List Post';
+$this->headTitle($title);
+?>
+<br>
+<?php $paging = $this->paginationHelper($pagedPosts, $page, '/post/', 10); ?>
+<div class="container">
+  	<h1><?php echo $this->escapeHtml($title); ?></h1>
+	<p>
+	    <a href="<?php echo $this->url('post', array('action'=>'add'));?>" class="btn btn-success">Add new Post</a>
+	</p>
+	<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Автор</th>
+		    <th>Заголовок</th>
+		    <th>Текст</th>
+            <th>Изображение</th>
+		    <th>Дата создание</th>
+		    <th>Дата обновления</th>
+		    <th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($pagedPosts as $post) : ?>
+		<tr>
+            <td><?php echo $this->escapeHtml($post->getId())?></td>
+            <td>
+                <?php
+                if($post->getUser()){
+                    echo $post->getUser()->getUsername();
+                } else {
+                    echo '&nbsp;';
+                }
+                ?>
+            </td>
+		    <td><?php echo $this->escapeHtml($post->getTitle());?></td>
+		    <td><?php echo $this->escapeHtml($post->getText());?></td>
+            <td>
+                <img width="200" src="<?php echo $post->getImage(); ?>" alt="<?php echo $this->escapeHtml($post->getImage()) ?>"/>
+            </td>
+		    <td>
+    		    <?php
+        	        if ($post->getDateUpdate() === null) {
+                        echo $this->escapeHtml($post->getDateInsert()->format('d-m-Y H:i:s'));
+        	        }
+                ?>
+            </td>
+            <td>
+                <?php
+                if ($post->getDateUpdate() === null) {
+                    echo $this->escapeHtml($post->getDateUpdate(null));
+                } else {
+                    echo $this->escapeHtml($post->getDateUpdate()->format('d-m-Y H:i:s'));
+                }
+                ?>
+            </td>
+		    <td>
+		        <a href="<?php echo $this->url('post',
+		            array('action'=>'edit', 'id' => $post->getId()));?>" class="btn btn-warning">Edit</a>
+		        <a href="<?php echo $this->url('post',
+		            array('action'=>'delete', 'id' => $post->getId()));?>" class="btn btn-danger">Delete</a>
+		    </td>
+		</tr>
+	</tbody>
+	<?php endforeach; ?>
+	</table>
+	<div class="paging">
+    	<?php echo  $paging; ?>
+	</div>
+</div>
+<?php else: ?>
+	<h3>Not Authentication</h3>
+<?php  endif;?>

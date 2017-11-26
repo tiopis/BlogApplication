@@ -1,0 +1,47 @@
+<?php
+$title = 'Регистрация';
+$this->headTitle($title);
+?>
+<?php echo $this->flashMessenger()->render(); ?>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h1><?php echo $this->escapeHtml($title); ?></h1>
+	</div>
+	<div class="panel-body">
+		<div id="form-register">
+		    <?php echo $this->form()->openTag($form); ?>
+    		<div class="name">
+    			<?php echo $this->formRow($form->get('name')->setAttribute('class','form-control')); ?>
+            </div>
+            <div class="surname">
+                <?php echo $this->formRow($form->get('surname')->setAttribute('class','form-control')); ?>
+            </div>
+            <div class="email">
+    			<?php echo $this->formRow($form->get('email')->setAttribute('class','form-control')); ?>
+            </div>
+            <div class="username">
+    			<?php echo $this->formRow($form->get('username')->setAttribute('class','form-control')); ?>
+            </div>
+            <div class="password">
+    			<?php echo $this->formRow($form->get('password')->setAttribute('class','form-control')); ?>
+    		</div>
+    		<div class="passwordVerify">
+    			<?php echo $this->formRow($form->get('passwordVerify')->setAttribute('class','form-control')); ?>
+     		</div>
+    		<div class="captcha">
+    			<?php echo $this->formRow($form->get('captcha')->setAttribute('class','form-control')); ?>
+            </div>
+            <hr>
+            <?php 
+                echo $this->formRow($form->get('registerCsrf')); 
+                echo $this->formSubmit($form->get('submit')->setAttribute('class','btn btn-success')); 
+            ?>
+            <?php echo $this->form()->closeTag();?>
+		</div>
+		<hr>
+		<p>
+            Already a member?
+			<a href="<?php echo $this->url('login', array('action'=>'login')); ?>"> Login</a>
+		</p>
+	</div>
+</div>

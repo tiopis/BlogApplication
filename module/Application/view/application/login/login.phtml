@@ -1,0 +1,36 @@
+<?php
+    $title = 'Login';
+    $this->headTitle($title);
+?>
+<?php echo $this->flashMessenger()->render(); ?>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h1><?php echo $this->escapeHtml($title); ?></h1>
+	</div>
+	<div class="panel-body">
+		<?php echo $this->form()->openTag($form); ?>
+		<div class="username">
+			<?php echo $this->formRow($form->get('username')->setAttribute('class','form-control')); ?>
+        </div>
+        <div class="password">
+			<?php echo $this->formRow($form->get('password')->setAttribute('class','form-control')); ?>
+        </div>
+        <div class="rememberme">
+			<?php echo $this->formRow($form->get('rememberme')); ?> 
+        </div>
+        <?php
+			echo $this->formRow($form->get('loginCsrf'));
+			echo $this->formSubmit($form->get('submit')->setAttribute('class','btn btn-success'));
+			echo $this->form()->closeTag();
+		?>
+		<br>
+		<p>
+			<a href="<?php echo $this->url('login',array('action' => 'forgotPassword')); ?>">Did you forget your password? </a>
+		</p>
+
+		<hr>
+		<p>You not yet registered?
+			<a href="<?php echo $this->url('register',array('action' => 'register')); ?>"> Register now </a>
+		</p>
+	</div>
+</div>

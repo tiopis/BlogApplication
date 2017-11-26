@@ -1,0 +1,27 @@
+<?php
+    $title = 'Add new Post';
+    $this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php echo $this->flashMessenger()->render(); ?>
+<div id="form-post-add">
+    <?php
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('post', array('action' => 'add')));
+        $form->prepare();
+        echo $this->form()->openTag($form);
+    ?>
+    <div class="title">
+        <?php echo $this->formRow($form->get('title')->setAttribute('class', 'form-control')); ?>
+    </div>
+    <div class="image">
+        <?php echo $this->formRow($form->get('image')); ?>
+    </div>
+    <div class="text">
+        <?php echo $this->formRow($form->get('text')->setAttribute('class', 'form-control'));?>
+    <div>
+    <?php
+        echo $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-success'));
+        echo $this->form()->closeTag();
+    ?>
+</div>

@@ -1,0 +1,35 @@
+<div class="jumbotron">
+    <h1><?php echo sprintf($this->translate('%sBlogApplication%s'), '<span class="zf-green">', '</span>') ?></h1>
+</div>
+<?php $paging = $this->paginationHelper($pagedPosts, $page, '/application/', 6); ?>
+<div class="row">
+    <?php  foreach ($pagedPosts as $post) :?>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a href="#"><?php echo $this->escapeHtml($post->getTitle()); ?></a>
+                </h3>
+                <p class="pull">
+                    <?php
+                        if ($post->getDateUpdate() === null) {
+                            echo $this->escapeHtml($post->getDateInsert()->format('d-m-Y H:i:s'));
+                        } else {
+                            echo $this->escapeHtml($post->getDateUpdate()->format('d-m-Y H:i:s'));
+                        }
+                    ?>
+                </p>
+            </div>
+            <div class="panel-body">
+                <?php if($post->getImage()) {?>
+                <p><img src="<?php echo $post->getImage() ?>" alt="<?php echo $post->getTitle() ?>"></p>
+                <?php }?>
+                <p><?php echo $this->escapeHtml($post->getText()); ?></p>
+            </div>
+        </div>
+    </div>
+    <?php endforeach;?>
+	<div class="paging">
+    	<?php echo $paging; ?>
+	</div>
+</div>
